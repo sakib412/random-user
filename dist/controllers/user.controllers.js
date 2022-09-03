@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUser = exports.getRandomUser = exports.getAllUsers = exports.createUser = void 0;
+exports.updateUser = exports.getRandomUser = exports.getAllUsers = exports.deleteUser = exports.createUser = exports.bulkUpdate = void 0;
 
 var _uuid = require("uuid");
 
@@ -96,13 +96,11 @@ const updateUser = async (req, res) => {
       return res.status(404).json((0, _response.errorResponse)('User not found with this id'));
     }
 
-    users[index] = {
-      name,
-      gender,
-      contact,
-      address,
-      photoUrl
-    };
+    name && (users[index].name = name);
+    gender && (users[index].gender = gender);
+    contact && (users[index].contact = contact);
+    address && (users[index].address = address);
+    photoUrl && (users[index].photoUrl = photoUrl);
     (0, _file.writeFile)(users);
     return res.status(201).json((0, _response.successResponse)(users[index]));
   } catch (err) {
@@ -111,3 +109,68 @@ const updateUser = async (req, res) => {
 };
 
 exports.updateUser = updateUser;
+
+const bulkUpdate = async (req, res) => {
+  try {
+    const {
+      users
+    } = req.body;
+
+    if (!Array.isArray(users)) {
+      return res.status(400).json((0, _response.errorResponse)("Please pass an array of users!"));
+    }
+
+    let usersData = (0, _file.readFile)();
+    const newData = [];
+    users.forEach(user => {
+      const {
+        id,
+        name,
+        gender,
+        contact,
+        address,
+        photoUrl
+      } = user;
+      const i = usersData.findIndex(u => u.id == id);
+
+      if (i > -1) {
+        name && (usersData[i].name = name);
+        gender && (usersData[i].gender = gender);
+        contact && (usersData[i].contact = contact);
+        address && (usersData[i].address = address);
+        photoUrl && (usersData[i].photoUrl = photoUrl);
+        newData.push(usersData[i]);
+      }
+    });
+    (0, _file.writeFile)(usersData);
+    return res.status(200).json((0, _response.successResponse)(newData));
+  } catch (err) {
+    return res.status(500).json((0, _response.errorResponse)(err.message));
+  }
+};
+
+exports.bulkUpdate = bulkUpdate;
+
+const deleteUser = async (req, res) => {
+  try {
+    const {
+      id
+    } = req.body;
+    let users = (0, _file.readFile)();
+    const index = users.findIndex(user => user.id === id);
+
+    if (index < 0) {
+      return res.status(404).json((0, _response.errorResponse)('User not found with this id'));
+    }
+
+    users.splice(index, 1);
+    (0, _file.writeFile)(users);
+    return res.status(204).json((0, _response.successResponse)({
+      message: `User deleted. Id: ${id}.`
+    }));
+  } catch (err) {
+    return res.status(500).json((0, _response.errorResponse)(err.message));
+  }
+};
+
+exports.deleteUser = deleteUser;
