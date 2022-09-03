@@ -21,6 +21,8 @@ var _errorHandler = _interopRequireDefault(require("./middleware/errorHandler"))
 
 var _response = require("./utils/response");
 
+var _user = _interopRequireDefault(require("./routes/user.router"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)(); // Middleware
@@ -38,7 +40,8 @@ app.get('/', (req, res) => {
   res.json((0, _response.successResponse)({
     "message": "Server is running"
   }));
-}); // handle errors
+});
+app.use('/user', _user.default); // handle errors
 
 app.use(_errorHandler.default);
 

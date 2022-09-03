@@ -7,6 +7,7 @@ import 'dotenv/config'
 import config from './config';
 import errorHandler from './middleware/errorHandler';
 import { successResponse } from './utils/response';
+import userRouter from './routes/user.router';
 
 export const app = express();
 
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
     res.json(successResponse({ "message": "Server is running" }));
 })
 
+app.use('/user', userRouter)
 
 // handle errors
 app.use(errorHandler)
