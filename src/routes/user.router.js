@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { getRandomUser } from "../controllers/user.controllers";
+import { createUser, getAllUsers, getRandomUser } from "../controllers/user.controllers";
 
 const userRouter = Router()
 userRouter.get('/random', getRandomUser)
+userRouter.get('/all', getAllUsers)
+userRouter.post('/save', createUser)
+
 
 // userRouter.route('/:id')
 //     .get(getOneProductController)

@@ -11,10 +11,11 @@
     },
     "runOnChangeOnly": false,
     "watch": [
-        "src/**/*.js"
+        "src/**/*.js",
+        "src/**/*.json"
     ],
     "env": {
         "NODE_ENV": "development"
     },
-    "ext": "js"
+    "ext": "js, json"
 }
