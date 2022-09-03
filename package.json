@@ -1,0 +1,38 @@
+{
+  "name": "random-user",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "babel src --out-dir dist",
+    "restart": "npm run build && npm run start",
+    "dev": "nodemon --exec npm run restart"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakib412/random-user.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Najmus Sakib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sakib412/random-user/issues"
+  },
+  "homepage": "https://github.com/sakib412/random-user#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/preset-env": "^7.18.10",
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0"
+  }
+}
