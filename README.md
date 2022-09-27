@@ -21,7 +21,7 @@
 ```
 {
     "gender": "Male",
-    "name": "Najmus Sakib s",
+    "name": "Najmus Sakib",
     "contact": "01781517797",
     "address": "Joypurhat, Bangladesh",
     "photoUrl": "https://avatars.githubusercontent.com/u/54371956?v=4"
